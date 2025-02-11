@@ -36,10 +36,10 @@ def receive_data():
 
                 #得知訊息了，回應結果
                 response_payload = {
-                    "text": f"收到，{plateno}謝謝你的回報",
                     "replace_original": "false",
                     "response_type": "in_channel",
-                    "thread_ts": message_ts
+                    "thread_ts": message_ts,
+                    "text": f"收到，{plateno}謝謝你的回報"
                 }
                 response_headers = {
                     "Content-Type": "application/json"
