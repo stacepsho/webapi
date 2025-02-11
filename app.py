@@ -22,21 +22,31 @@ def receive_data():
             #    print(f"key is ：{key}", flush=True)
             #    print(f"value is ：{value}", flush=True)
 
-            data = request.form['payload']   
-            data = json.loads(data)  # 解析JSON
-            response_url = data.get("response_url")
-            print(f"response url is ：{response_url}", flush=True)
+            data = request.form['payload'] 
+            if data:
+                #SLACK來的資料，取得，response_url 是回應的url
+                data = json.loads(data)  # 解析JSON
+                print(f"{data}", flush=True)
+                response_url = data.get("response_url")
+                print(f"response url is ：{response_url}", flush=True)
 
-            #回應結果
-            response_payload = {
-                "text": "SUCCESS"
-            }
-            response_headers = {
-                "Content-Type": "application/json"
-            }
-            response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
-            
-            return jsonify({"message": "Data received"}), 200
+                #得知訊息了，回應結果
+                response_payload = {
+                    "text": "SUCCESS",
+                    "response_type": "in_channel"
+                }
+                response_headers = {
+                    "Content-Type": "application/json"
+                }
+                response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
+                return jsonify({"message": "Data received"}), 200
+            else:
+                key_value_pairs = {key: data[key] for key in data}
+                print("---Received Key-Value Pairs---", flush=True)
+                for key, value in key_value_pairs.items():
+                    print(f"key is ：{key}", flush=True)
+                    print(f"value is ：{value}", flush=True)
+                    return jsonify({"message": "Data received"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
