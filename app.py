@@ -32,6 +32,7 @@ def receive_data():
                 message_ts = data['container']['message_ts']
                 print(f"response url is ：{response_url}", flush=True)
                 print(f"plateno is ：{plateno}", flush=True)
+                print(f"message_ts is ：{message_ts}", flush=True)
 
                 #得知訊息了，回應結果
                 response_payload = {
@@ -44,8 +45,8 @@ def receive_data():
                     "Content-Type": "application/json"
                 }
                 response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
-                return jsonify({"text": "Data received"}), 200
-                
+                #return jsonify({"text": "Data received"}), 200
+
             else:
                 key_value_pairs = {key: data[key] for key in data}
                 print("---Received Key-Value Pairs---", flush=True)
@@ -65,7 +66,7 @@ def receive_data():
         return jsonify({"error": "Unsupported Content-Type"}), 415
     
     received_data.append(data)
-    print(f"---Received data---: {data}", flush=True)
+    #print(f"---Received data---: {data}", flush=True)
     return jsonify({"text": "Data received"}), 200
 
 @app.route('/getData', methods=['GET'])
