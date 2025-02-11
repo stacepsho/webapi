@@ -29,6 +29,7 @@ def receive_data():
                 print(f"{data}", flush=True)
                 response_url = data.get("response_url")
                 plateno = data.get("state", {}).get("values", {}).get("csBjQ", {}).get("plain_text_input-action", {}).get("value")
+                message_ts = data['container']['message_ts']
                 print(f"response url is ：{response_url}", flush=True)
                 print(f"plateno is ：{plateno}", flush=True)
 
@@ -36,13 +37,15 @@ def receive_data():
                 response_payload = {
                     "text": f"收到，{plateno}謝謝你的回報",
                     "replace_original": "false",
-                    "response_type": "in_channel"
+                    "response_type": "in_channel",
+                    "thread_ts": message_ts
                 }
                 response_headers = {
                     "Content-Type": "application/json"
                 }
                 response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
                 return jsonify({"text": "Data received"}), 200
+                
             else:
                 key_value_pairs = {key: data[key] for key in data}
                 print("---Received Key-Value Pairs---", flush=True)
