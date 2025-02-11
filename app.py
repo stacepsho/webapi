@@ -28,12 +28,14 @@ def receive_data():
                 data = json.loads(data)  # 解析JSON
                 print(f"{data}", flush=True)
                 response_url = data.get("response_url")
+                thread_ts = data.get("thread_ts")
                 print(f"response url is ：{response_url}", flush=True)
 
                 #得知訊息了，回應結果
                 response_payload = {
                     "text": "SUCCESS",
-                    "response_type": "in_channel"
+                    "response_type": "in_channel",
+                    "replace_original": "false"
                 }
                 response_headers = {
                     "Content-Type": "application/json"
