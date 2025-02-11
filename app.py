@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 #from flask_cors import CORS
 import os
 import json
+import requests
 
 app = Flask(__name__)
 #CORS(app)
@@ -16,11 +17,16 @@ def receive_data():
         if data:
             # 列出所有的鍵值對
             key_value_pairs = {key: data[key] for key in data}
-            print("---Received Key-Value Pairs---", flush=True)
+            #print("---Received Key-Value Pairs---", flush=True)
             for key, value in key_value_pairs.items():
-                print(f"{key}: {value}", flush=True)
+                print(f"key is {key}", flush=True)
+                print(f"{value}", flush=True)
             #return jsonify({"message": "Data received"}), 200
             return jsonify({"text": "Success!","response_type":"in_channel"}), 200
+            
+            #取出response_url
+            #response_url = payload.get("response_url")
+
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
@@ -45,6 +51,16 @@ def list_data():
 @app.route('/')
 def hello():
     return f'---RUNNING---'
+
+def replySlack(url):
+    payload = {
+        "text": "SUCCESS"
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(url, data=json.dumps(payload), headers=headers)
 
 if __name__ == '__main__':
     port_nr = int(os.environ.get("PORT", 10000))
