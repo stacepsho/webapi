@@ -30,11 +30,13 @@ def receive_data():
                 response_url = data.get("response_url")
                 plateno = data.get("state", {}).get("values", {}).get("csBjQ", {}).get("plain_text_input-action", {}).get("value")
                 print(f"response url is ：{response_url}", flush=True)
-                print(f"plateno url is ：{plateno}", flush=True)
+                print(f"plateno is ：{plateno}", flush=True)
 
                 #得知訊息了，回應結果
                 response_payload = {
-                    "text": f"收到，{plateno}謝謝你的回報"
+                    "text": f"收到，{plateno}謝謝你的回報",
+                    "replace_original": "false",
+                    "response_type": "in_channel"
                 }
                 response_headers = {
                     "Content-Type": "application/json"
