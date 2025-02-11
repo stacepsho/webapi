@@ -19,7 +19,8 @@ def receive_data():
             print("---Received Key-Value Pairs---", flush=True)
             for key, value in key_value_pairs.items():
                 print(f"{key}: {value}", flush=True)
-            return jsonify({"message": "Data received"}), 200
+            #return jsonify({"message": "Data received"}), 200
+            return jsonify({"text": "Command is successful"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
