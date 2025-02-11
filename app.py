@@ -7,7 +7,7 @@ CORS(app)
 
 received_data = []
 
-@app.route('/data', methods=['POST'])
+@app.route('/postData', methods=['POST'])
 def receive_data():
     data = request.get_json()
     received_data.append(data)
@@ -15,7 +15,7 @@ def receive_data():
     print(f"---Received data---: {data}")
     return jsonify({"message": "Data received"}), 201
 
-@app.route('/data', methods=['GET'])
+@app.route('/getData', methods=['GET'])
 def list_data():
     # 在控制台顯示將要列出的資料
     print(f"---Listing all received data---: {received_data}")
