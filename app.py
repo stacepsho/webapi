@@ -12,6 +12,9 @@ received_data = []
 def receive_data():
     if request.content_type == 'application/x-www-form-urlencoded':
         data_str = request.form.get('data')
+        #
+        print(f'---data_str---{data_str}', flush=True)
+        #
         if data_str:
             try:
                 data = json.loads(data_str)
