@@ -45,6 +45,9 @@ def receive_data():
                     "Content-Type": "application/json"
                 }
                 response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
+                print(f'After POST Status Code: {response.status_code}', flush=True)
+                print(f'After POST Headers: {response.headers}', flush=True)
+                print(f'After POST Response Body: {response.text}', flush=True)
                 #return jsonify({"text": "Data received"}), 200
 
             else:
