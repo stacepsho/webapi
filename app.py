@@ -21,9 +21,9 @@ def receive_data():
             for key, value in key_value_pairs.items():
                 print(f"key is ：{key}", flush=True)
                 print(f"value is ：{value}", flush=True)
-            #return jsonify({"message": "Data received"}), 200
-            response_url = data.get("response_url")
-            print(f"respons url is ：{response_url}", flush=True)
+                response_url = value.get("response_url")
+                print(f"respons url is ：{response_url}", flush=True)
+                
             return jsonify({"text": "Success!","response_type":"in_channel"}), 200
             
             #取出response_url
