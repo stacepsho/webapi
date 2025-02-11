@@ -20,7 +20,7 @@ def receive_data():
             for key, value in key_value_pairs.items():
                 print(f"{key}: {value}", flush=True)
             #return jsonify({"message": "Data received"}), 200
-            return jsonify({"text": "Success!","replace_original":"true"})
+            return jsonify({"text": "Success!","response_type":"in_channel"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
