@@ -16,19 +16,27 @@ def receive_data():
         data = request.form
         if data:
             # 列出所有的鍵值對
-            key_value_pairs = {key: data[key] for key in data}
+            #key_value_pairs = {key: data[key] for key in data}
             #print("---Received Key-Value Pairs---", flush=True)
-            for key, value in key_value_pairs.items():
-                print(f"key is ：{key}", flush=True)
-                print(f"value is ：{value}", flush=True)
-                response_url = value.get("response_url")
-                print(f"respons url is ：{response_url}", flush=True)
-                
-            return jsonify({"text": "Success!","response_type":"in_channel"}), 200
-            
-            #取出response_url
-            #response_url = payload.get("response_url")
+            #for key, value in key_value_pairs.items():
+            #    print(f"key is ：{key}", flush=True)
+            #    print(f"value is ：{value}", flush=True)
 
+            data = request.form['payload']   
+            data = json.loads(data)  # 解析JSON
+            response_url = data.get("response_url")
+            print(f"response url is ：{response_url}", flush=True)
+
+            #回應結果
+            response_payload = {
+                "text": "SUCCESS"
+            }
+            response_headers = {
+                "Content-Type": "application/json"
+            }
+            response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
+            
+            return jsonify({"message": "Data received"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
