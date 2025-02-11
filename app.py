@@ -35,7 +35,7 @@ def receive_data():
     print(f"---Received data---: {data}", flush=True)
     return jsonify({"message": "Data received"}), 200
 
-@app.route('/getData', methods=['GET']), flush=True
+@app.route('/getData', methods=['GET'])
 def list_data():
     # 在控制台顯示將要列出的資料
     print(f"---Listing all received data---: {received_data}", flush=True)
