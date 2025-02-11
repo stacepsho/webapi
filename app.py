@@ -9,6 +9,7 @@ received_data = []
 
 @app.route('/postData', methods=['POST'])
 def receive_data():
+    #接收資料
     data = request.get_json()
     received_data.append(data)
     # 在控制台顯示收到的資料
