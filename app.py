@@ -42,14 +42,14 @@ def receive_data():
                     "Content-Type": "application/json"
                 }
                 response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
-                return jsonify({"message": "Data received"}), 200
+                return jsonify({"text": "Data received"}), 200
             else:
                 key_value_pairs = {key: data[key] for key in data}
                 print("---Received Key-Value Pairs---", flush=True)
                 for key, value in key_value_pairs.items():
                     print(f"key is ：{key}", flush=True)
                     print(f"value is ：{value}", flush=True)
-                    return jsonify({"message": "Data received"}), 200
+                    return jsonify({"text": "Data received"}), 200
         else:
             return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
@@ -63,7 +63,7 @@ def receive_data():
     
     received_data.append(data)
     print(f"---Received data---: {data}", flush=True)
-    return jsonify({"message": "Data received"}), 200
+    return jsonify({"text": "Data received"}), 200
 
 @app.route('/getData', methods=['GET'])
 def list_data():
