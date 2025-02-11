@@ -11,26 +11,28 @@ received_data = []
 @app.route('/postData', methods=['POST'])
 def receive_data():
     if request.content_type == 'application/x-www-form-urlencoded':
-        data_str = request.form.get('data')
-        #
-        print(f'---data_str---{data_str}', flush=True)
-        #
-        if data_str:
-            try:
-                data = json.loads(data_str)
-            except json.JSONDecodeError:
-                return jsonify({"error": "Invalid JSON data"}), 400
+        print("---x-www-form-urlencoded---")
+        data = request.form
+        if data:
+            # 列出所有的鍵值對
+            key_value_pairs = {key: data[key] for key in data}
+            print("---Received Key-Value Pairs---")
+            for key, value in key_value_pairs.items():
+                print(f"{key}: {value}")
+            return jsonify({"message": "Data received"}), 201
         else:
-            return jsonify({"error": "No data provided"}), 400
+            return jsonify({"error": "No data received"}), 400
     elif request.content_type == 'application/json':
+        print("---json---")
         data = request.get_json()
         if data is None:
             return jsonify({"error": "Invalid JSON data"}), 400
     else:
+        print("---Unsupported Content-Type---")
         return jsonify({"error": "Unsupported Content-Type"}), 415
     
     received_data.append(data)
-    print(f"---Received data---: {data}")
+    #print(f"---Received data---: {data}")
     return jsonify({"message": "Data received"}), 201
 
 @app.route('/getData', methods=['GET'])
