@@ -39,12 +39,13 @@ def receive_data():
                     "replace_original": "false",
                     "response_type": "in_channel",
                     "thread_ts": message_ts,
-                    "text": f"收到，{plateno}謝謝你的回報"
+                    "text": f"收到，{plateno} 謝謝你的回報"
                 }
                 response_headers = {
                     "Content-Type": "application/json"
                 }
                 response = requests.post(response_url, data=json.dumps(response_payload), headers=response_headers)
+                print(f'After POST Body: {data}', flush=True)
                 print(f'After POST Status Code: {response.status_code}', flush=True)
                 print(f'After POST Headers: {response.headers}', flush=True)
                 print(f'After POST Response Body: {response.text}', flush=True)
@@ -72,6 +73,18 @@ def receive_data():
     #print(f"---Received data---: {data}", flush=True)
     return jsonify({"text": "Data received"}), 200
 
+@app.route('/stopPTZ', methods=['POST'])
+def command_stopptz():
+    #SLASH COMMAND
+    data = request.form['payload'] 
+    if data:
+        data = json.loads(data)  # 解析JSON
+        print(f"{data}", flush=True)
+        return jsonify({"text": "Data received"}), 200
+    else:
+        print(f"ERROR---{data}", flush=True)
+        return jsonify({"error": "ERROR"}), 400
+
 @app.route('/getData', methods=['GET'])
 def list_data():
     # 在控制台顯示將要列出的資料
@@ -81,16 +94,6 @@ def list_data():
 @app.route('/')
 def hello():
     return f'---RUNNING---'
-
-def replySlack(url):
-    payload = {
-        "text": "SUCCESS"
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    response = requests.post(url, data=json.dumps(payload), headers=headers)
 
 if __name__ == '__main__':
     port_nr = int(os.environ.get("PORT", 10000))
