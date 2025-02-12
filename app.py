@@ -76,14 +76,18 @@ def receive_data():
 @app.route('/stopPTZ', methods=['POST'])
 def command_stopptz():
     #SLASH COMMAND
-    data = request.form['payload'] 
-    if data:
-        data = json.loads(data)  # 解析JSON
-        print(f"{data}", flush=True)
-        return jsonify({"text": "Data received"}), 200
+    if request.content_type == 'application/x-www-form-urlencoded':
+        print("---x-www-form-urlencoded---", flush=True)
+        data = json.loads(request.form)
+    elif request.content_type == 'application/json':
+        print("---json---", flush=True)
+        data = request.get_json()
     else:
-        print(f"ERROR---{data}", flush=True)
-        return jsonify({"error": "ERROR"}), 400
+        print("---Unsupported Content-Type---", flush=True)
+        return jsonify({"error": "Unsupported Content-Type"}), 415
+
+    print(f"{data}", flush=True)
+    return jsonify({"text": "Data received"}), 200
 
 @app.route('/getData', methods=['GET'])
 def list_data():
