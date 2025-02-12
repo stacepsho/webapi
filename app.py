@@ -78,7 +78,14 @@ def command_stopptz():
     #SLASH COMMAND
     if request.content_type == 'application/x-www-form-urlencoded':
         print("---x-www-form-urlencoded---", flush=True)
-        data = json.loads(request.form['payload'])
+        data = request.form
+        if data:
+            # 列出所有的鍵值對
+            key_value_pairs = {key: data[key] for key in data}
+            print("---Received Key-Value Pairs---", flush=True)
+            for key, value in key_value_pairs.items():
+                print(f"key is ：{key}", flush=True)
+                print(f"value is ：{value}", flush=True)
     elif request.content_type == 'application/json':
         print("---json---", flush=True)
         data = request.get_json()
