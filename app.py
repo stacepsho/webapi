@@ -78,7 +78,7 @@ def command_stopptz():
     #SLASH COMMAND
     if request.content_type == 'application/x-www-form-urlencoded':
         print("---x-www-form-urlencoded---", flush=True)
-        data = json.loads(request.form)
+        data = json.loads(request.form['payload'])
     elif request.content_type == 'application/json':
         print("---json---", flush=True)
         data = request.get_json()
