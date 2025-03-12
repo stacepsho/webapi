@@ -10,7 +10,7 @@ app = Flask(__name__)
 #CORS(app)
 
 received_data = []
-slack_tk="xoxb-8113930665923-8117072255540-oXMx7iXzThbWvdfIGqpwlKAI"
+slack_tk="xoxb-8113930665923-8117072255540-wstIvcJHnomq0QRUZIzMxxIr"
 slack_channel="C083CDAMHNX"
 
 @app.route('/postData', methods=['POST'])
