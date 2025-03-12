@@ -10,6 +10,8 @@ app = Flask(__name__)
 #CORS(app)
 
 received_data = []
+slack_tk="xoxb-8113930665923-8117072255540-cJeQj9SMJAsQnHOgYwzg3E78"
+slack_channel="C083CDAMHNX"
 
 @app.route('/postData', methods=['POST'])
 def receive_data():
@@ -91,7 +93,7 @@ def command_stopptz():
             
             #回應訊息到群組
             msg ='[{"type":"section","text":{"type":"mrkdwn","text":":請指定*專案跟攝影機*"}},{"type":"divider"},{"type":"section","text":{"type":"mrkdwn","text":"*<fakeLink.toYourApp.com|專案>*\n專案名稱"},"accessory":{"type":"static_select","placeholder":{"type":"plain_text","emoji":true,"text":"專案"},"options":[{"text":{"type":"plain_text","emoji":true,"text":"台中AI"},"value":"台中AI"},{"text":{"type":"plain_text","emoji":true,"text":"台中4合1"},"value":"台中4合1"},{"text":{"type":"plain_text","emoji":true,"text":"高雄AI"},"value":"高雄AI"}]}},{"type":"section","text":{"type":"mrkdwn","text":"*<fakeLink.toYourApp.com|攝影機>*\n攝影機"},"accessory":{"type":"static_select","placeholder":{"type":"plain_text","emoji":true,"text":"攝影機"},"options":[{"text":{"type":"plain_text","emoji":true,"text":"CAM_01"},"value":"CAM_01"},{"text":{"type":"plain_text","emoji":true,"text":"CAM_02"},"value":"CAM_02"},{"text":{"type":"plain_text","emoji":true,"text":"CAM_03"},"value":"CAM_03"}]}},{"type":"divider"},{"type":"actions","elements":[{"type":"button","text":{"type":"plain_text","emoji":true,"text":"送出"},"value":"送出"}]}]'
-            toSLACK("xoxb-8113930665923-8117072255540-cJeQj9SMJAsQnHOgYwzg3E78",'C083CDAMHNX',msg,"","","mybot",9999)
+            toSLACK(slack_tk,slack_channel,msg,"","","mybot",9999)
 
     elif request.content_type == 'application/json':
         print("---json---", flush=True)
