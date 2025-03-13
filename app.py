@@ -33,18 +33,30 @@ def receive_data():
                 print(f"{data}", flush=True)
                 response_url = data.get("response_url")
                 plateno = data.get("state", {}).get("values", {}).get("csBjQ", {}).get("plain_text_input-action", {}).get("value")
+                selected_cam = data.get("state", {}).get("values", {}).get("JlDto", {}).get("hv5Cg", {}).get("selected_option", {}).get("value")
                 message_ts = data['container']['message_ts']
                 print(f"response url is ：{response_url}", flush=True)
                 print(f"plateno is ：{plateno}", flush=True)
                 print(f"message_ts is ：{message_ts}", flush=True)
 
                 #得知訊息了，回應結果
-                response_payload = {
+                if(selected_cam != ""):
+                    #是CAM的回應
+                    response_payload = {
+                    "replace_original": "false",
+                    "response_type": "in_channel",
+                    "thread_ts": message_ts,
+                    "text": f"收到，{selected_cam} 已經暫停轉向"
+                    }
+                else:
+                    response_payload = {
                     "replace_original": "false",
                     "response_type": "in_channel",
                     "thread_ts": message_ts,
                     "text": f"收到，{plateno} 謝謝你的回報"
-                }
+                    }
+
+                #開始回應
                 response_headers = {
                     "Content-Type": "application/json"
                 }
