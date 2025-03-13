@@ -40,7 +40,7 @@ def receive_data():
                 print(f"message_ts is ：{message_ts}", flush=True)
 
                 #得知訊息了，回應結果
-                if(selected_cam != ""):
+                if not selected_cam:
                     #是CAM的回應
                     response_payload = {
                     "replace_original": "false",
