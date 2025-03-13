@@ -40,20 +40,21 @@ def receive_data():
                 print(f"selected_cam is ：{selected_cam}", flush=True)
 
                 #得知訊息了，回應結果
-                if plateno=="":
+                if plateno:
+                    #是車號的回應
+                    response_payload = {
+                    "replace_original": "false",
+                    "response_type": "in_channel",
+                    "thread_ts": message_ts,
+                    "text": f"收到，{plateno} 謝謝你的回報"
+                    }
+                else:
                     #是CAM的回應
                     response_payload = {
                     "replace_original": "false",
                     "response_type": "in_channel",
                     "thread_ts": message_ts,
                     "text": f"收到，{selected_cam} 已經暫停轉向"
-                    }
-                else:
-                    response_payload = {
-                    "replace_original": "false",
-                    "response_type": "in_channel",
-                    "thread_ts": message_ts,
-                    "text": f"收到，{plateno} 謝謝你的回報"
                     }
 
                 #開始回應
