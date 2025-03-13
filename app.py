@@ -37,7 +37,7 @@ def receive_data():
                 message_ts = data['container']['message_ts']
                 print(f"response url is ：{response_url}", flush=True)
                 print(f"plateno is ：{plateno}", flush=True)
-                print(f"selected_cam is ：{message_ts}", flush=True)
+                print(f"selected_cam is ：{selected_cam}", flush=True)
 
                 #得知訊息了，回應結果
                 if plateno=="":
