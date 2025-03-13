@@ -37,10 +37,10 @@ def receive_data():
                 message_ts = data['container']['message_ts']
                 print(f"response url is ：{response_url}", flush=True)
                 print(f"plateno is ：{plateno}", flush=True)
-                print(f"message_ts is ：{message_ts}", flush=True)
+                print(f"selected_cam is ：{message_ts}", flush=True)
 
                 #得知訊息了，回應結果
-                if not selected_cam:
+                if plateno=="":
                     #是CAM的回應
                     response_payload = {
                     "replace_original": "false",
